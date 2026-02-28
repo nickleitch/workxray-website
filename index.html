@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkXRay — AI-Powered Process Discovery via WhatsApp</title>
+    <meta name="description" content="Chat with our AI on WhatsApp for 30 minutes. Get back a complete automation blueprint for your business — which tasks to automate, which tools to use, and how much time you'll save.">
+    <meta name="keywords" content="process discovery, automation, WhatsApp bot, business process, workflow analysis, AI consultant, South Africa">
+    <meta property="og:title" content="WorkXRay — See Your Work. Automate What Matters.">
+    <meta property="og:description" content="AI-powered process discovery via WhatsApp. Get your automation blueprint in days, not months.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://workxray.com">
+    <link rel="canonical" href="https://workxray.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue-500: #3B82F6;
+            --blue-600: #2563EB;
+            --blue-400: #60A5FA;
+            --blue-300: #93C5FD;
+            --blue-100: #DBEAFE;
+            --slate-900: #0F172A;
+            --slate-800: #1E293B;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-400: #94A3B8;
+            --slate-300: #CBD5E1;
+            --slate-200: #E2E8F0;
+            --slate-100: #F1F5F9;
+            --slate-50: #F8FAFC;
+            --white: #FFFFFF;
+            --green-500: #22C55E;
+            --green-600: #16A34A;
+            --amber-500: #F59E0B;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--slate-800);
+            line-height: 1.6;
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === UTILITY === */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 96px 0;
+        }
+
+        .section-dark {
+            background: var(--slate-900);
+            color: var(--slate-100);
+        }
+
+        .section-light {
+            background: var(--slate-50);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--blue-500);
+            margin-bottom: 16px;
+        }
+
+        .section-dark .section-label {
+            color: var(--blue-400);
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--slate-900);
+        }
+
+        .section-dark .section-title {
+            color: var(--white);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--slate-600);
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        .section-dark .section-subtitle {
+            color: var(--slate-400);
+        }
+
+        .text-center { text-align: center; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+
+        /* === BUTTONS === */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--blue-600);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-500);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        .btn-whatsapp {
+            background: var(--green-500);
+            color: var(--white);
+        }
+
+        .btn-whatsapp:hover {
+            background: var(--green-600);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .btn-sm {
+            padding: 10px 24px;
+            font-size: 14px;
+        }
+
+        /* === NAV === */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo svg {
+            height: 36px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
+        /* === HERO === */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--slate-900) 0%, #162040 50%, var(--slate-900) 100%);
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.12;
+            background-image:
+                radial-gradient(circle at 20% 50%, var(--blue-500) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--blue-400) 0%, transparent 40%),
+                radial-gradient(circle at 60% 80%, var(--blue-500) 0%, transparent 45%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--blue-300);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green-500);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5.5vw, 60px);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--blue-400), var(--blue-300));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--slate-400);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 560px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        /* Chat mockup */
+        .chat-mockup {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+            max-width: 360px;
+            margin-left: auto;
+        }
+
+        .chat-header {
+            background: #075E54;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--blue-500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .chat-name {
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .chat-status {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+        }
+
+        .chat-body {
+            background: #ECE5DD;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 300px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeInMsg 0.5s ease;
+        }
+
+        @keyframes fadeInMsg {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-msg.bot {
+            background: var(--white);
+            align-self: flex-start;
+            border-top-left-radius: 2px;
+            color: var(--slate-800);
+        }
+
+        .chat-msg.user {
+            background: #DCF8C6;
+            align-self: flex-end;
+            border-top-right-radius: 2px;
+            color: var(--slate-800);
+        }
+
+        .chat-msg .time {
+            font-size: 11px;
+            color: var(--slate-400);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .chat-typing {
+            align-self: flex-start;
+            background: var(--white);
+            padding: 10px 16px;
+            border-radius: 8px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .chat-typing span {
+            width: 7px;
+            height: 7px;
+            background: var(--slate-400);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* === PROBLEM/SOLUTION === */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-top: 56px;
+        }
+
+        .problem-card {
+            padding: 36px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .problem-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .problem-card p {
+            color: var(--slate-400);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .problem-icon.red { background: rgba(239, 68, 68, 0.15); }
+        .problem-icon.amber { background: rgba(245, 158, 11, 0.15); }
+        .problem-icon.blue { background: rgba(59, 130, 246, 0.15); }
+        .problem-icon.green { background: rgba(34, 197, 94, 0.15); }
+
+        .vs-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 56px 0;
+        }
+
+        .vs-badge {
+            background: var(--blue-600);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .vs-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(59,130,246,0.04));
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .solution-box h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .solution-box p {
+            font-size: 17px;
+            color: var(--slate-300);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* === HOW IT WORKS === */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 56px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 28px;
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--slate-200);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+            border-color: var(--blue-300);
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--blue-100);
+            color: var(--blue-600);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--slate-900);
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--slate-600);
+            line-height: 1.7;
+        }
+
+        .step-arrow {
+            display: none;
+        }
+
+        /* === FEATURES === */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 56px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: 16px;
+            background: var(--white);
+            border: 1px solid var(--slate-200);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--blue-300);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--blue-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--slate-900);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--slate-600);
+            line-height: 1.7;
+        }
+
+        /* === STATS === */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-top: 56px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: var(--blue-400);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--slate-400);
+        }
+
+        /* === PRICING === */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 56px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 32px;
+            border: 1px solid var(--slate-200);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--blue-500);
+            box-shadow: 0 16px 48px rgba(59, 130, 246, 0.15);
+            transform: scale(1.03);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--blue-600);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pricing-tier {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue-500);
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 4px;
+        }
+
+        .pricing-price span {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--slate-400);
+        }
+
+        .pricing-desc {
+            font-size: 14px;
+            color: var(--slate-500);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--slate-700);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--green-500);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* === CTA === */
+        .cta-section {
+            background: linear-gradient(135deg, var(--blue-600), #1D4ED8);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--slate-900);
+            padding: 48px 0 32px;
+            color: var(--slate-400);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            margin-top: 12px;
+            max-width: 300px;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 48px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .footer-bottom a {
+            color: var(--slate-400);
+            text-decoration: none;
+        }
+
+        /* === ANIMATIONS === */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 968px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                text-align: center;
+            }
+
+            .hero-content { max-width: 100%; }
+
+            .hero-sub { margin-left: auto; margin-right: auto; }
+
+            .hero-buttons { justify-content: center; }
+
+            .chat-mockup { margin: 0 auto; }
+
+            .problem-grid { grid-template-columns: 1fr; }
+
+            .steps { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+            .features-grid { grid-template-columns: 1fr 1fr; }
+
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .pricing-card.featured { transform: none; }
+
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15,23,42,0.98);
+                padding: 24px;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .section { padding: 64px 0; }
+            .features-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .solution-box { padding: 32px 24px; }
+            .footer-inner { flex-direction: column; }
+            .footer-links { flex-direction: column; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" height="36">
+                        <defs>
+                            <linearGradient id="xB1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.95"/>
+                                <stop offset="100%" stop-color="#60A5FA" stop-opacity="0.7"/>
+                            </linearGradient>
+                            <linearGradient id="xB2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.95"/>
+                                <stop offset="100%" stop-color="#60A5FA" stop-opacity="0.7"/>
+                            </linearGradient>
+                        </defs>
+                        <text x="32" y="52" font-family="'Inter', sans-serif" font-size="34" font-weight="600" fill="#F1F5F9" letter-spacing="0.5">Work</text>
+                        <g transform="translate(152, 40)">
+                            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="url(#xB1)" transform="rotate(-45)" opacity="0.9"/>
+                            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="url(#xB2)" transform="rotate(45)" opacity="0.9"/>
+                            <circle cx="0" cy="0" r="4" fill="#60A5FA" opacity="0.45"/>
+                            <circle cx="0" cy="0" r="2" fill="#FFFFFF" opacity="0.8"/>
+                        </g>
+                        <text x="172" y="52" font-family="'Inter', sans-serif" font-size="34" font-weight="600" fill="#F1F5F9" letter-spacing="0.5">ray</text>
+                    </svg>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#how">How It Works</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#cta" class="btn btn-primary btn-sm">Get Started</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        AI-Powered Process Discovery
+                    </div>
+                    <h1>See Your Work.<br><span class="highlight">Automate What Matters.</span></h1>
+                    <p class="hero-sub">Chat with our AI on WhatsApp for 30 minutes. Get back a complete automation blueprint — which tasks to automate, which tools to use, and how much time you'll save.</p>
+                    <div class="hero-buttons">
+                        <a href="#cta" class="btn btn-whatsapp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            Start on WhatsApp
+                        </a>
+                        <a href="#how" class="btn btn-outline">See How It Works</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="chat-mockup">
+                        <div class="chat-header">
+                            <div class="chat-avatar">WX</div>
+                            <div>
+                                <div class="chat-name">WorkXRay</div>
+                                <div class="chat-status">online</div>
+                            </div>
+                        </div>
+                        <div class="chat-body" id="chatBody">
+                            <div class="chat-msg bot">
+                                Hi! I'm your WorkXRay analyst. I'll ask you about your daily tasks so we can find automation opportunities. Ready to start?
+                                <div class="time">09:01</div>
+                            </div>
+                            <div class="chat-msg user">
+                                Sure! I spend most of my day on reports and data entry.
+                                <div class="time">09:02</div>
+                            </div>
+                            <div class="chat-msg bot">
+                                Great — let's start with reports. Walk me through what a typical report looks like for you. Which tools do you use?
+                                <div class="time">09:02</div>
+                            </div>
+                            <div class="chat-typing">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM/SOLUTION -->
+    <section class="section section-dark" id="problem">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">The Problem</span>
+                <h2 class="section-title">You can't automate<br>what you can't see</h2>
+                <p class="section-subtitle mx-auto">Businesses know they should automate. But the tools that exist today have a massive blind spot.</p>
+            </div>
+            <div class="problem-grid fade-up">
+                <div class="problem-card">
+                    <div class="problem-icon red">&#9888;</div>
+                    <h3>Execution platforms assume too much</h3>
+                    <p>Zapier, Make, and Power Automate are powerful — but they assume you already know which processes to automate. Most businesses don't.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon amber">&#128176;</div>
+                    <h3>Enterprise tools cost a fortune</h3>
+                    <p>UiPath and Automation Anywhere start at R500K+ and require consultants. Enterprise discovery platforms need browser extensions and IT buy-in.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon blue">&#128337;</div>
+                    <h3>Consulting takes months</h3>
+                    <p>Traditional BPA firms charge R2,000/hr and take 6-8 weeks just for the discovery phase — before any automation is built.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon green">&#128566;</div>
+                    <h3>People don't know what they do</h3>
+                    <p>Ask someone to document their workflow and you'll get a vague summary. The real detail lives in habits, workarounds, and muscle memory.</p>
+                </div>
+            </div>
+
+            <div class="vs-divider">
+                <div class="vs-line"></div>
+                <span class="vs-badge">VS</span>
+                <div class="vs-line"></div>
+            </div>
+
+            <div class="solution-box fade-up">
+                <h3>WorkXRay: Discovery in a chat</h3>
+                <p>Our AI interviews your team via WhatsApp — the app they already use every day. No portals, no browser extensions, no IT involvement. Just a 30-minute conversation that reveals everything.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-light" id="how">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">How It Works</span>
+                <h2 class="section-title">Three steps to your<br>automation blueprint</h2>
+                <p class="section-subtitle mx-auto">From chat to blueprint in days, not months. No training required — if you can use WhatsApp, you can use WorkXRay.</p>
+            </div>
+            <div class="steps fade-up">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Chat with our AI</h3>
+                    <p>Open WhatsApp and start a conversation. Our AI asks smart, structured questions about your daily tasks — like having a friendly management consultant in your pocket. Voice notes welcome.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>We map your workflow</h3>
+                    <p>Behind the scenes, AI analyses your answers to build a detailed process map — every task, tool, handoff, and time estimate. It spots patterns you'd never notice yourself.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get your blueprint</h3>
+                    <p>Receive a prioritised automation roadmap: which tasks to automate first, which tools to use, expected time savings, and step-by-step implementation instructions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">Features</span>
+                <h2 class="section-title">Built for real businesses</h2>
+                <p class="section-subtitle mx-auto">Everything you need to go from invisible processes to actionable automation plans.</p>
+            </div>
+            <div class="features-grid fade-up">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128172;</div>
+                    <h3>WhatsApp Native</h3>
+                    <p>Works where your team already is. No new apps to install, no portals to learn, no IT tickets to file.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127908;</div>
+                    <h3>Voice + Text</h3>
+                    <p>Send voice notes or type — whatever feels natural. Our AI handles both seamlessly. Voice notes capture richer detail for open-ended questions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#129504;</div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Claude AI conducts structured interviews, extracts workflow intelligence, and identifies automation opportunities humans would miss.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128202;</div>
+                    <h3>Actionable Blueprints</h3>
+                    <p>Not just a list of suggestions — detailed implementation plans with specific tools, time savings, ROI estimates, and step-by-step instructions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128247;</div>
+                    <h3>Image &amp; Document Support</h3>
+                    <p>Share screenshots, photos of whiteboards, or existing SOPs. The AI extracts process information from visual content automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9201;</div>
+                    <h3>Flexible Sessions</h3>
+                    <p>Complete the interview across 2-3 short sessions whenever it suits you. Pick up exactly where you left off — no rush.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">By The Numbers</span>
+                <h2 class="section-title">Process discovery,<br>radically simplified</h2>
+            </div>
+            <div class="stats-row fade-up">
+                <div class="stat">
+                    <div class="stat-value">30 min</div>
+                    <div class="stat-label">Average interview time</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2-3</div>
+                    <div class="stat-label">Short chat sessions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">48 hrs</div>
+                    <div class="stat-label">Blueprint delivery</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">10x</div>
+                    <div class="stat-label">Cheaper than consulting</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section section-light" id="pricing">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Simple, transparent pricing</h2>
+                <p class="section-subtitle mx-auto">Start with a single role. Scale to your whole team. No contracts, no hidden fees.</p>
+            </div>
+            <div class="pricing-grid fade-up">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Starter</div>
+                    <div class="pricing-price">R499 <span>/ role</span></div>
+                    <div class="pricing-desc">Perfect for testing the waters with one role or department.</div>
+                    <ul class="pricing-features">
+                        <li>1 role blueprint</li>
+                        <li>Full AI interview</li>
+                        <li>Voice + text support</li>
+                        <li>Prioritised automation roadmap</li>
+                        <li>Implementation instructions</li>
+                    </ul>
+                    <a href="#cta" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Team</div>
+                    <div class="pricing-price">R399 <span>/ role</span></div>
+                    <div class="pricing-desc">Map your entire team's workflows and find cross-role automation wins.</div>
+                    <ul class="pricing-features">
+                        <li>5-20 role blueprints</li>
+                        <li>Everything in Starter</li>
+                        <li>Cross-role dependency mapping</li>
+                        <li>Team automation dashboard</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#cta" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">Custom</div>
+                    <div class="pricing-desc">Full organisation process discovery with dedicated support.</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited role blueprints</li>
+                        <li>Everything in Team</li>
+                        <li>Organisation-wide process map</li>
+                        <li>Executive summary report</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <a href="mailto:nick@stirlingbridge.co.za" class="btn btn-primary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>Ready to see what you<br>could automate?</h2>
+            <p>Start a WhatsApp conversation with our AI. Your automation blueprint is 30 minutes away.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/27XXXXXXXXXX" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Start on WhatsApp
+                </a>
+                <a href="mailto:nick@stirlingbridge.co.za" class="btn btn-outline">Talk to Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" height="32">
+                        <defs>
+                            <linearGradient id="fxB1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.95"/>
+                                <stop offset="100%" stop-color="#60A5FA" stop-opacity="0.7"/>
+                            </linearGradient>
+                            <linearGradient id="fxB2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.95"/>
+                                <stop offset="100%" stop-color="#60A5FA" stop-opacity="0.7"/>
+                            </linearGradient>
+                        </defs>
+                        <text x="32" y="52" font-family="'Inter', sans-serif" font-size="34" font-weight="600" fill="#F1F5F9" letter-spacing="0.5">Work</text>
+                        <g transform="translate(152, 40)">
+                            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="url(#fxB1)" transform="rotate(-45)" opacity="0.9"/>
+                            <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="url(#fxB2)" transform="rotate(45)" opacity="0.9"/>
+                            <circle cx="0" cy="0" r="4" fill="#60A5FA" opacity="0.45"/>
+                            <circle cx="0" cy="0" r="2" fill="#FFFFFF" opacity="0.8"/>
+                        </g>
+                        <text x="172" y="52" font-family="'Inter', sans-serif" font-size="34" font-weight="600" fill="#F1F5F9" letter-spacing="0.5">ray</text>
+                    </svg>
+                    <p>AI-powered process discovery via WhatsApp. See your work clearly. Automate what matters.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#how">How It Works</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="https://stirlingbridge.co.za" target="_blank" rel="noopener">Stirling Bridge Capital</a></li>
+                            <li><a href="mailto:nick@stirlingbridge.co.za">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 WorkXRay. A Stirling Bridge Capital product.</span>
+                <a href="mailto:nick@stirlingbridge.co.za">nick@stirlingbridge.co.za</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // Scroll animations
+        const fadeEls = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        fadeEls.forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
